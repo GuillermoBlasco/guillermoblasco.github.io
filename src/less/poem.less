@@ -1,0 +1,24 @@
+poem {
+  display: table-cell;
+  padding: 20px;
+
+  * {
+    display: block;
+  }
+  title {
+    padding-bottom: 10px;
+    + author {
+      padding-left: 40px;
+    }
+  }
+  strophe {
+    padding-top: 20px;
+    verse {
+    }
+    + author {
+      padding-top: 20px;
+      padding-right: 20px;
+      text-align: right;
+    }
+  }
+}

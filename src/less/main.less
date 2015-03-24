@@ -1,0 +1,116 @@
+@backgroundColor: #F2F2F2;
+@textColor: #717171;
+@borderColor: #4c4c4c;
+@shadowColor: #404040;
+
+body {
+    background-color: @backgroundColor;
+    color: @textColor;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  font-size: 48px;
+  padding-bottom: 10px;
+  padding-top: 20px;
+  margin-top: 0;
+  border-bottom: @borderColor solid 1px;
+  box-shadow: 0px 10px 50px @shadowColor;
+}
+.calligraphic {
+  font-family: 'Calligraffitti', cursive;
+}
+.code {
+  font-family: 'Anonymous Pro', ;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+.center {
+    text-align: center;
+}
+.bottom {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+.linkStack {
+  color: @textColor;
+  display: block;
+  text-align: center;
+  padding: 5px;
+  font-size: 18px;
+  text-decoration: none;
+}
+.withTextDecorator {
+  &:before, &:after {
+    display: inline-block;
+    opacity: 0;
+    transition: opacity 0.5s linear;
+    width: 15em;
+  }
+  &:hover {
+    font-weight: bold;
+    &:before, &:after {
+      font-weight: normal;
+      opacity: 1;
+      transition: opacity 0.5s linear;
+    }
+  }
+  &:before {
+    text-align: right;
+  }
+  &:after {
+    text-align: left;
+  }
+}
+#codingLink {
+  &:before {
+    content: '>> bash\0000a0';
+  }
+  &:after {
+    content: '.sh';
+  }
+}
+
+#poetryLink {
+  &:before {
+    content: 'Matthew Arnold said: "';
+  }
+  &:after {
+    content: '\0000a0is, at bottom, a criticism of life."';
+  }
+}
+
+#matesLink {
+  &:before {
+    content: 'friends,\0000a0';
+  }
+  &:after {
+    content: '\0000a0and cats';
+  }
+}
+
+#referentsLink {
+  &:before {
+    content: 'without\0000a0';
+  }
+  &:after {
+    content: '\0000a0we are bare brains.';
+  }
+}
+
+#aboutLink {
+  &:before {
+    content: 'a little\0000a0';
+  }
+  &:after {
+    content: '\0000a0me';
+  }
+}
+
