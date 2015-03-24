@@ -1,0 +1,29 @@
+.console {
+  height: 60%;
+  display: block;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-bottom: 50px;
+
+  section {
+    z-index: -1;
+    overflow-y: scroll;
+    height: 100%;
+    p {
+      &.consoleInput {
+        &:before {
+          content: '$\0000a0';
+        }
+      }
+    }
+
+  }
+
+  label {
+    display: block;
+    widows: 100%;
+    input {
+      width: 100%;
+    }
+  }
+}

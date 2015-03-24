@@ -25,11 +25,8 @@ var sources = {
     ],
     js : {
         all : [
-            'src/js/raphael-min.js',
-            'src/js/vivus.min.js',
-            'src/js/svg-path-fonts.js',
+            'src/js/console.js',
             'src/js/index.js',
-            'src/js/tbb.banner.js'
         ],
         ie : [
             'src/js/html5shiv.js',
@@ -37,7 +34,7 @@ var sources = {
         ]
     },
     less : [
-        'src/less/poem.less',
+        'src/less/consoleBox.less',
         'src/less/main.less'
     ],
     html : [
