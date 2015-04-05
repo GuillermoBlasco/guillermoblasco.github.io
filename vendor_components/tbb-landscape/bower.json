@@ -1,0 +1,28 @@
+{
+  "name": "tbb-landscape",
+  "version": "1.0.1",
+  "homepage": "https://github.com/theblackboxio/tbb-landscape",
+  "authors": [
+    "Guillermo <guillermo@theblackbox.io>"
+  ],
+  "main" : "tbb-landscape.html",
+  "description": "Polymer landscape component",
+  "license": "BSD",
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.5"
+  },
+  "keywords" : [
+    "Polymer",
+    "web-components",
+    "html",
+    "image",
+    "landscape"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

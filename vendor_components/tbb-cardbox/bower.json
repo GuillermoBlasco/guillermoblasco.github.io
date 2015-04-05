@@ -1,0 +1,27 @@
+{
+  "name": "tbb-cardbox",
+  "version": "1.0.0",
+  "homepage": "https://github.com/theblackboxio/tbb-cardbox",
+  "authors": [
+    "Guillermo <guillermo@theblackbox.io>"
+  ],
+  "main" : "tbb-cardbox.html",
+  "description": "Polymer cardbox component",
+  "license": "BSD",
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.5"
+  },
+  "keywords" : [
+    "Polymer",
+    "web-components",
+    "html",
+    "card"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

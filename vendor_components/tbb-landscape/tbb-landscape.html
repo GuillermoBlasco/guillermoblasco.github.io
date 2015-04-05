@@ -1,0 +1,79 @@
+<!--
+Copyright (c) 2015 theblackbox.io Authors. All rights reserved.
+This code may only be used under the BSD style license found at LICENSE
+The complete set of authors and contributors may be found at http://theblackboxio.github.io/humans.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<polymer-element name="tbb-landscape" attributes="imageSrc height blur gray">
+    <template>
+        <style>
+            #background {
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+                width: 100%;
+                max-height: 500px;
+                top: 0;
+                left:0;
+                right: 0;
+                z-index: 1;
+            }
+            .blur {
+                filter: blur(5px);
+                -webkit-filter: blur(5px);
+                -moz-filter: blur(5px);
+                -o-filter: blur(5px);
+                -ms-filter: blur(5px);
+            }
+            .gray {
+                filter: grayscale(100%);
+                -webkit-filter: grayscale(100%);
+                -moz-filter: grayscale(100%);
+                -o-filter: grayscale(100%);
+                -ms-filter: grayscale(100%);
+            }
+            .blurAndGray {
+                filter: blur(5px) grayscale(100%);
+                -webkit-filter: blur(5px) grayscale(100%);
+                -moz-filter: blur(5px) grayscale(100%);
+                -o-filter: blur(5px) grayscale(100%);
+                -ms-filter: blur(5px) grayscale(100%);
+            }
+            #titles {
+                position: relative;
+                padding-top: 150px;
+                margin-bottom: 150px;
+                left: 0;
+                right: 0;
+                z-index: 10;
+                text-align: center;
+                vertical-align: middle;
+            }
+            content::content img {
+                max-height: 150px;
+            }
+        </style>
+
+        <div id="background"
+             class="{{ {gray: onlyGray, blur: onlyBlur, blurAndGray: blurAndGray} | tokenList}}"
+             style="background-image:url('{{imageSrc}}'); height:{{height}}px;">
+
+        </div>
+        <div id="titles" style="margin-top:-{{height}}px;">
+            <content></content>
+        </div>
+
+    </template>
+    <script>
+        Polymer({
+            blur : false,
+            gray : false,
+            imgSrc : "",
+            height: 150,
+            get onlyBlur() { return this.blur && ! this.gray; },
+            get onlyGray() { return this.gray && ! this.blur; },
+            get blurAndGray() { return this.gray && this.blur; }
+
+        });
+    </script>
+</polymer-element>

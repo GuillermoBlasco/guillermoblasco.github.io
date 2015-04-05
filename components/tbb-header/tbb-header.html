@@ -1,0 +1,16 @@
+<link rel="import"
+      href="../../vendor_components/polymer/polymer.html">
+<link rel="import"
+      href="../tbb-toolbar/tbb-toolbar.html">
+<polymer-element name="tbb-header" attributes="linkType">
+    <template>
+        <style>
+        </style>
+        <tbb-toolbar linkType="{{linkType}}"></tbb-toolbar>
+    </template>
+    <script>
+        Polymer({
+            linkType: "pageSection"
+        });
+    </script>
+</polymer-element>
