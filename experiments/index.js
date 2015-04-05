@@ -1,1 +1,96 @@
-!function(){"use strict";var execFor=function(command,context,alias){return function(){void 0!=window[alias]&&(window.oa8fod938fuvoc0=window[alias]),window[alias]=context;var out=eval(command);return window[alias]=void 0!=window.oa8fod938fuvoc0?window.oa8fod938fuvoc0:void 0,out}()},autocompleteFor=function(){var e=function(){};return e},dispatchCommandFor=function(e,t){var o=function(o){var n=document.createElement("p"),r=document.createTextNode(o);n.appendChild(r),n.className="consoleInput",t.appendChild(n);var c="";try{c=execFor(o,e,"me")}catch(a){c="Looks like an error: "+a.toString()}var i=document.createElement("p"),u=document.createTextNode(c?c.toString():"");i.appendChild(u),i.className="consoleOutput",t.appendChild(i),t.parentNode.scrollTop=t.parentNode.scrollHeight};return o},dispatchInputWith=function(e,t){var o=function(o){var n=o.target.value;13==o.which?(t(n),o.target.value=""):e(n)};return o};window.onload=function(){var e={name:function(){return"Guillermo"},city:function(){return"Barcelona"},education:function(){return["Mathematics degree","Software Engineering degree"]}},t=(document.getElementById("consoleBox"),document.getElementById("consoleInputBox")),o=document.getElementById("consoleOutputBox"),n=autocompleteFor(e),r=dispatchCommandFor(e,o),c=dispatchInputWith(n,r);t.addEventListener("keypress",c)}}(),function(){"use strict";var e="Web developed by theblackbox.io \n find us in theblackbox.io";window.console&&console.log(e)}(),Polymer("tbb-landscape",{blur:!1,gray:!1,imgSrc:"",height:150,get onlyBlur(){return this.blur&&!this.gray},get onlyGray(){return this.gray&&!this.blur},get blurAndGray(){return this.gray&&this.blur}}),Polymer("tbb-cardbox",{riseonhover:!1});
+(function() {
+    'use strict';
+    var execFor = function(command, context, alias) {
+        return (function() {
+            if (window[alias] != undefined) {
+                window["oa8fod938fuvoc0"] = window[alias];
+            }
+            window[alias] = context;
+            var out =  eval(command);
+            if (window["oa8fod938fuvoc0"] != undefined) {
+                window[alias] = window["oa8fod938fuvoc0"];
+            } else {
+                window[alias] = undefined;
+            }
+            return out;
+        })();
+    };
+
+    var autocompleteFor = function(context) {
+        var f = function(text) {
+
+        };
+        return f;
+    };
+    var dispatchCommandFor = function(context, outputbox) {
+        var dispatchCommand = function (command) {
+            var pIn = document.createElement("p");
+            var textIn = document.createTextNode(command);
+            pIn.appendChild(textIn);
+            pIn.className = "consoleInput";
+            outputbox.appendChild(pIn);
+            var output = "";
+            try {
+                output = execFor(command, context, 'me');
+            } catch (e) {
+                output = "Looks like an error: " + e.toString();
+            }
+            var pOut = document.createElement("p");
+            var textOut = document.createTextNode((output) ? output.toString() : "");
+            pOut.appendChild(textOut);
+            pOut.className = "consoleOutput";
+            outputbox.appendChild(pOut);
+            outputbox.parentNode.scrollTop = outputbox.parentNode.scrollHeight;
+        };
+        return dispatchCommand;
+    };
+    var dispatchInputWith = function(autocomplete, dispatchCommand) {
+        var dispatchInput = function (e) {
+            var command = e.target.value;
+            if (e.which == 13) {
+                dispatchCommand(command);
+                e.target.value = "";
+            } else {
+                autocomplete(command);
+            }
+        };
+        return dispatchInput;
+    };
+
+    window.onload = function() {
+        var context = {
+            name : function() { return "Guillermo"; },
+            city : function() { return "Barcelona"; },
+            education: function() { return ["Mathematics degree", "Software Engineering degree"]; }
+        };
+        var consoleBox = document.getElementById('consoleBox');
+        var inputbox = document.getElementById('consoleInputBox');
+        var outputbox = document.getElementById('consoleOutputBox');
+        var autocomplete = autocompleteFor(context);
+        var dispatchCommand = dispatchCommandFor(context, outputbox);
+        var dispatchInput = dispatchInputWith(autocomplete, dispatchCommand);
+        inputbox.addEventListener('keypress', dispatchInput);
+    };
+})();
+(function() {
+    'use strict';
+    var banner = "Web developed by theblackbox.io \n find us in theblackbox.io";
+    window.console && console.log(banner);
+})();
+
+        Polymer('tbb-landscape',{
+            blur : false,
+            gray : false,
+            imgSrc : "",
+            height: 150,
+            get onlyBlur() { return this.blur && ! this.gray; },
+            get onlyGray() { return this.gray && ! this.blur; },
+            get blurAndGray() { return this.gray && this.blur; }
+
+        });
+    ;
+
+        Polymer("tbb-cardbox", {
+            riseonhover : false
+        });
+    
