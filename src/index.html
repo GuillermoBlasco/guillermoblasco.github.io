@@ -2,25 +2,103 @@
 <html>
     <head>
         <link href='http://fonts.googleapis.com/css?family=Calligraffitti|Anonymous+Pro' rel='stylesheet' type='text/css'>
-        <link href="css/all.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/index.css" rel="stylesheet" type="text/css"/>
+        <link rel="import" href="vendor_components/tbb-landscape/tbb-landscape.html">
+        <link rel="import" href="vendor_components/tbb-cardbox/tbb-cardbox.html">
         <!--[if lt IE 9]>
-        <script src="js/ie.js"></script>
+        <script src="/js/index.ie.js"></script>
         <![endif]-->
 
         <title>Shakespeare Code</title>
     </head>
 
-    <h1><span class="calligraphic">Shakespeare</span> <span class="code">Code</span></h1>
+    <h1 id="heading"><span class="calligraphic">Shakespeare</span> <span class="code">Code</span></h1>
 
-    <h2 class="center">If you are going to try, go all the way</h2>
 
-    <a id="codingLink" class="linkStack withTextDecorator" href="coding">Coding</a>
-    <a id="poetryLink" class="linkStack withTextDecorator" href="poetry">Poetry</a>
-    <a id="matesLink" class="linkStack withTextDecorator" href="mates">Mates</a>
-    <a id="referentsLink" class="linkStack withTextDecorator" href="referents">Referents</a>
-    <a id="aboutLink" class="linkStack withTextDecorator" href="about">About</a>
+    <tbb-landscape id="landscape" height="500" imageSrc="/media/wineAndFlowers.jpg">
+        <h2>If you are going to try, go all the way</h2>
+    </tbb-landscape>
 
-    <div class="bottom center">This site does not track your activity with cookies, here you are safe.</div>
-    <script type="text/javascript" src="js/all.js"></script>
+    <div class="component-center">
+        <a href="about">
+            <tbb-cardbox riseonhover>
+                <section class="top">
+                    <img src="/media/mustache.svg"/>
+                </section>
+                <section class="bottom">
+                    <h1>About</h1>
+                    <h2>Guillermo Blasco</h2>
+                </section>
+            </tbb-cardbox>
+        </a>
+        <a href="friends">
+            <tbb-cardbox riseonhover>
+                <section class="top">
+                    <img src="/media/high5.svg"/>
+                </section>
+                <section class="bottom">
+                    <h1>Friends</h1>
+                    <h2>(and cats)</h2>
+                </section>
+            </tbb-cardbox>
+        </a>
+        <a href="blog">
+            <tbb-cardbox riseonhover>
+                <section class="top">
+                    <img src="/media/work.svg"/>
+                </section>
+                <section class="bottom">
+                    <h1>Blog</h1>
+                    <h2>Serious things</h2>
+                </section>
+            </tbb-cardbox>
+        </a>
+        <a href="experiments">
+            <tbb-cardbox riseonhover>
+                <section class="top">
+                    <img src="/media/experiments.svg"/>
+                </section>
+                <section class="bottom">
+                    <h1>Experiments</h1>
+                    <h2>Not so serious</h2>
+                </section>
+            </tbb-cardbox>
+        </a>
+        <a href="contact">
+            <tbb-cardbox riseonhover>
+                <section class="top">
+                    <img src="/media/contact.svg"/>
+                </section>
+                <section class="bottom">
+                    <h1>Contact</h1>
+                    <h2>& Social Media</h2>
+                </section>
+            </tbb-cardbox>
+        </a>
+        <a href="http://www.theblackbox.io" target="_blank">
+            <tbb-cardbox riseonhover>
+                <section class="top">
+                    <img src="/media/business.svg"/>
+                </section>
+                <section class="bottom">
+                    <h1>Business</h1>
+                    <h2>theblackbox.io</h2>
+                </section>
+            </tbb-cardbox>
+        </a>
+        <a href="https://github.com/GuillermoBlasco/guillermoblasco.github.io" target="_blank">
+            <tbb-cardbox riseonhover>
+                <section class="top">
+                    <img src="/media/code.svg"/>
+                </section>
+                <section class="bottom">
+                    <h1>This web site</h1>
+                    <h2>(warning: code)</h2>
+                </section>
+            </tbb-cardbox>
+        </a>
+    </div>
+
+
 </html>
 

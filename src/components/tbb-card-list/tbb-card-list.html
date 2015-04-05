@@ -1,0 +1,164 @@
+<link rel="import"
+      href="../../vendor_components/polymer/polymer.html">
+<link rel="import"
+      href="../../vendor_components/core-animated-pages/core-animated-pages.html">
+<polymer-element name="tbb-card-list" attributes="height">
+    <template>
+
+        <style>
+            .chip-container {
+                position: absolute;
+                top: -50px;
+                right: 0;
+                left: 0;
+                text-align: center;
+            }
+
+            .chip {
+                display: inline-block;
+                position: relative;
+                border-radius: 3px;
+                margin: 4px;
+                overflow: hidden;
+                text-align: start;
+                background-color: #fff;
+                box-shadow: 0 2px 10px 10px rgba(0, 0, 0, 0.16);
+            }
+
+            .chip-top {
+                width: 250px;
+                height: 250px;
+                background: #2a2928;
+            }
+
+            .chip-bottom {
+                padding: 8px;
+                line-height: 1.5;
+            }
+
+            .chip-title-title {
+                font-weight: bold;
+            }
+
+            #details {
+                padding: 0 10% 0;
+                margin-top: -60px;
+            }
+
+            .card {
+                height: 400px;
+                border-radius: 3px;
+                text-align: start;
+                overflow: hidden;
+                background: #fff;
+                box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+
+            .card-left {
+                width: 400px;
+            }
+
+            .card-right {
+                padding: 24px;
+            }
+
+            .card-icon {
+                border-radius: 50%;
+                width: 60px;
+                height: 60px;
+                margin-right: 16px;
+                background: #2a2928;
+            }
+
+            .card-title-title {
+                font-size: 2em;
+            }
+        </style>
+
+        <core-animated-pages selected="{{page}}" style="height:{{height}}px;" transitions="hero-transition" on-core-animated-pages-transition-end="{{complete}}">
+
+            <section>
+
+                <div class="chip-container" hero-p on-tap="{{transition}}">
+
+                    <template repeat="{{items as item}}">
+                        <div class="chip" hero-id="{{item.brief}}-{{item.title}}" hero?="{{selectedTitle === item }}">
+                            <div class="chip-top" hero-id="{{item.brief}}-{{item.title}}-art" hero?="{{selectedTitle === item}}">
+                                <img src="{{item.frontImg}}"  width="{{250}}"></object>
+                            </div>
+                            <div class="chip-bottom">
+                                <div class="chip-title-title">{{item.title}}</div>
+                                <div class="chip-brief">{{item.brief}}</div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </section>
+
+            <section id="details">
+
+                <div class="card" layout horizontal hero-id="{{selectedTitle.brief}}-{{selectedTitle.title}}" hero on-tap="{{transition}}">
+                    <div class="card-left" hero-id="{{selectedTitle.brief}}-{{selectedTitle.title}}-art" hero></div>
+                    <div class="card-right" flex>
+                        <div layout horizontal center>
+                            <div>
+                                <div class="card-icon"></div>
+                            </div>
+                            <div flex>
+                                <div class="card-title-title">{{selectedTitle.title}}</div>
+                                <div class="card-title-brief">{{selectedTitle.brief}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+
+        </core-animated-pages>
+
+    </template>
+    <script>
+
+        Polymer('tbb-card-list', {
+
+            page: 0,
+
+            items: [],
+
+            height: 400,
+
+            selectedTitle: null,
+
+            // process the content to extract the object data model
+            domReady : function() {
+                var items = [];
+                [].forEach.call(this.children, function(section, i) {
+                    var sectionObject = {};
+                    var top = section.getElementsByClassName("top")[0];
+                    var detail = section.getElementsByClassName("detail")[0];
+                    sectionObject.title = top.getElementsByTagName("h1")[0].textContent;
+                    sectionObject.brief = top.getElementsByTagName("h2")[0].textContent;
+                    sectionObject.index = i;
+                    if (top.getElementsByTagName("img").length == 0) {
+                        sectionObject.frontImg = false;
+                    } else {
+                        sectionObject.frontImg = top.getElementsByTagName("img")[0].getAttribute("src");
+                    }
+                    items.push(sectionObject);
+                });
+                this.items = items;
+            },
+
+            transition: function(e) {
+                if (this.page === 0 && e.target.templateInstance.model.item) {
+                    this.selectedTitle = e.target.templateInstance.model.item;
+                    this.page = 1;
+                } else {
+                    this.page = 0;
+                }
+            }
+        });
+
+    </script>
+</polymer-element>

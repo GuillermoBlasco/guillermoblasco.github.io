@@ -1,3 +1,5 @@
+@import "variables";
+
 .console {
   height: 60%;
   display: block;
@@ -5,10 +7,9 @@
   margin-right: 20%;
   margin-bottom: 50px;
 
+  z-index: -1;
+  overflow-y: scroll;
   section {
-    z-index: -1;
-    overflow-y: scroll;
-    height: 100%;
     p {
       &.consoleInput {
         &:before {
@@ -21,9 +22,11 @@
 
   label {
     display: block;
-    widows: 100%;
+    width: 100%;
     input {
-      width: 100%;
+      border: none;
+      width: 90%;
+      background: @backgroundColor;
     }
   }
 }

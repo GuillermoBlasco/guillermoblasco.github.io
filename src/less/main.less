@@ -1,7 +1,4 @@
-@backgroundColor: #F2F2F2;
-@textColor: #717171;
-@borderColor: #4c4c4c;
-@shadowColor: #404040;
+@import "variables";
 
 body {
     background-color: @backgroundColor;
@@ -11,112 +8,38 @@ body {
     height: 100vh;
 }
 
-h1 {
+#landscape + * {
+  margin-top: 300px;
+}
+
+#heading {
   text-align: center;
   font-size: 48px;
-  padding-bottom: 10px;
   padding-top: 20px;
-  margin-top: 0;
   border-bottom: @borderColor solid 1px;
-  box-shadow: 0px 10px 50px @shadowColor;
-  a {
-    color: @textColor;
-    text-decoration: none;
-  }
+  box-shadow: 0 10px 50px @shadowColor;
+  margin: 0;
 }
 .calligraphic {
   font-family: 'Calligraffitti', cursive;
 }
 .code {
-  font-family: 'Anonymous Pro', ;
+  font-family: 'Anonymous Pro', monospace ;
 }
 
-.hidden {
-  display: none;
-  visibility: hidden;
-}
-.center {
-    text-align: center;
-}
-.bottom {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    padding-bottom: 10px;
-}
-.linkStack {
-  color: @textColor;
-  display: block;
+.component-center {
+  position: relative;
+  top: -50px;
+  right: 0;
+  left: 0;
   text-align: center;
-  padding: 5px;
-  font-size: 18px;
-  text-decoration: none;
-}
-.withTextDecorator {
-  &:before, &:after {
+  > * {
     display: inline-block;
-    opacity: 0;
-    transition: opacity 0.5s linear;
-    width: 15em;
-    overflow: visible;
-  }
-  &:hover {
-    font-weight: bold;
-    &:before, &:after {
-      font-weight: normal;
-      opacity: 1;
-      transition: opacity 0.5s linear;
-    }
-  }
-  &:before {
-    text-align: right;
-  }
-  &:after {
-    text-align: left;
-  }
-}
-#codingLink {
-  &:before {
-    content: '>> bash\0000a0';
-  }
-  &:after {
-    content: '.sh';
+    vertical-align: top;
+    margin: 25px;
   }
 }
 
-#poetryLink {
-  &:before {
-    content: 'Matthew Arnold said: "';
-  }
-  &:after {
-    content: '\0000a0is, at bottom, a criticism of life."';
-  }
+.component-center /deep/ * {
+  background-color: @backgroundColor;
 }
-
-#matesLink {
-  &:before {
-    content: 'friends,\0000a0';
-  }
-  &:after {
-    content: '\0000a0and cats';
-  }
-}
-
-#referentsLink {
-  &:before {
-    content: 'without\0000a0';
-  }
-  &:after {
-    content: '\0000a0we are bare brains.';
-  }
-}
-
-#aboutLink {
-  &:before {
-    content: 'a little\0000a0';
-  }
-  &:after {
-    content: '\0000a0me';
-  }
-}
-

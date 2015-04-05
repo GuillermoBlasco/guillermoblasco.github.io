@@ -29,13 +29,18 @@
             pIn.appendChild(textIn);
             pIn.className = "consoleInput";
             outputbox.appendChild(pIn);
-            var output = execFor(command, context, 'me');
+            var output = "";
+            try {
+                output = execFor(command, context, 'me');
+            } catch (e) {
+                output = "Looks like an error: " + e.toString();
+            }
             var pOut = document.createElement("p");
-            var textOut = document.createTextNode(output.toString());
+            var textOut = document.createTextNode((output) ? output.toString() : "");
             pOut.appendChild(textOut);
             pOut.className = "consoleOutput";
             outputbox.appendChild(pOut);
-            outputbox.scrollTop = outputbox.scrollHeight;
+            outputbox.parentNode.scrollTop = outputbox.parentNode.scrollHeight;
         };
         return dispatchCommand;
     };

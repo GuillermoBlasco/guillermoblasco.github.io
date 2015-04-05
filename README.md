@@ -6,11 +6,22 @@
 
 * gulp installed globally (`npm install -g gulp`)
 
-Remember to execute `npm install` before call gulp.
+* bower
+
+Remember to execute `npm install` and `bower install` before call gulp.
 
 ## Build
 
 Execute `gulp` to build the development profile, or `gulp -p` to build the production profile.
+
+## Develop
+
+Execute:
+
+    cd dist
+    python -m SimpleHTTPServer
+    
+To start a http server in the `dist` folder as root. Then open http://localhost:8000/index.html.
 
 ## Deploy
 

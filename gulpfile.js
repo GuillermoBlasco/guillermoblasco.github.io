@@ -1,229 +1,120 @@
-// import modules
+
+/*
+ * Require general modules
+ */
+
 var gulp = require('gulp');
-var data = require('gulp-data');
-var del = require('del'); // rm -rf
-var gutil = require('gulp-util');
-var minifyCSS = require('gulp-minify-css');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var uncss = require('gulp-uncss');
-var size = require('gulp-size');
-var notify = require('gulp-notify');
-var minifyHTML = require('gulp-minify-html');
-var imagemin = require('gulp-imagemin');
-var pngquant = require('imagemin-pngquant');
-var cmq = require('gulp-combine-media-queries');
-var ghPages = require('gulp-gh-pages');
-var es = require('event-stream');
-var less = require('gulp-less');
-var template = require('gulp-template');
+var filter = require('gulp-filter');
 var argv = require('yargs').argv;
+var taskListing = require('gulp-task-listing');
 
-// declaration of source files
-var sources = {
-    css : [
-    ],
-    js : {
-        all : [
-            'src/js/console.js',
-            'src/js/index.js',
-        ],
-        ie : [
-            'src/js/html5shiv.js',
-            'src/js/respond.min.js'
-        ]
-    },
-    less : [
-        'src/less/consoleBox.less',
-        'src/less/main.less'
-    ],
-    html : [
-        'src/**/*.html'
-    ],
-    fonts : [
-        'src/fonts/*'
-    ],
-    images : [
-        'src/images/**/*'
-    ],
-    others : [
-        'src/humans.txt',
-        'src/robots.txt',
-        'src/LICENSE.txt'
-    ]
-};
+/*
+ * Configuration properties
+ */
 
-// declaration of target files
-var target = {
-    js : {
-        dir : 'dist/js',
-        name : {
-            all : 'all.js',
-            ie : 'ie.js'
-        }
-    },
-    css : {
-        dir : 'dist/css',
-        name : 'all.css'
-    },
-    html : {
-        dir : 'dist/'
-    },
-    fonts : {
-        dir : 'dist/fonts'
-    },
-    images : {
-        dir : 'dist/images'
-    },
-    others : {
-        dir: 'dist/'
-    }
-};
+var outputDir = 'dist/';
+var basepath = 'src/';
+var isProduction = (argv.p) ? true : false;
+var port = 8001;
 
-// template data
-var templateData = {
-    misc : {
-        calendar : (new Date()).toLocaleDateString(),
-        clock : (new Date()).toLocaleTimeString()
-    }
-};
-// utility function to display size notifications
-var sizeChangeMessageCallBack = function(preSize, postSize, title) {
-    return function () {
-        var compression = 1.0 - postSize.size / preSize.size;
-        var message = "";
-        if (title) {
-            message += title + " ";
-        }
-        message += preSize.prettySize + ' -> ' + postSize.prettySize;
-        message += " (" + (compression * 100).toFixed(1) + "% compression rate)";
-        return message;
-    };
-};
+/*
+ * Require function library
+ */
+var lib = require('./gulplib')(gulp, outputDir, basepath, isProduction);
 
-// Environment configuration
-var environment = {
-    development : false,
-    production : false
-};
+/*
+ * Source files declaration
+ */
 
-// if flag "-p" present, then load production environment
-if (argv.p) {
-    environment.production = true;
-} else { // otherwise, as default set development environment
-    environment.development = true;
-}
+var miscFiles = [
+    'src/humans.txt',
+    'src/CNAME',
+    'src/robots.txt',
+    'src/404.html'
+];
+var htmlSources = [
+    { dir: '', name:'index.html'},
+    { dir: 'about/', name:'index.html'},
+    { dir: 'contact/', name:'index.html'},
+    { dir: 'blog/', name:'index.html'},
+    { dir: 'experiments/', name:'index.html'},
+    { dir: 'friends/', name:'index.html'}
+];
 
-gulp.task('html', ['clean'], function() {
-    var preSize = size();
-    var postSize = size();
-    var stream =  gulp.src(sources.html)
-        .pipe(preSize);
-    if (environment.production) {
-        stream = stream.pipe(minifyHTML());
-    }
-    stream = stream.pipe(postSize)
-        .pipe(gulp.dest(target.html.dir))
-        .pipe(notify({
-            onLast: true,
-            title: 'HTML compression',
-            message: sizeChangeMessageCallBack(preSize, postSize)
-        }));
-    return stream;
+/*
+ * GULP TASKS
+ */
+gulp.task('help', taskListing);
+
+gulp.task('build-polymer', ['build-components-vendor','build-components-custom'], function() {
+    var jsStream = gulp.src(['src/js/**/*','!src/js/**/*.ie.js']);
+    return lib.processPolymer(htmlSources, jsStream);
 });
 
-gulp.task('fonts', ['clean'], function() {
-    return gulp.src(sources.fonts)
-        .pipe(gulp.dest(target.fonts.dir));
-});
-gulp.task('img', ['clean'], function() {
-    var preSize = size();
-    var postSize = size();
-    return gulp.src(sources.images)
-        .pipe(preSize)
-        .pipe(imagemin({
-            progressive: true,
-            use: [pngquant()]
-        }))
-        .pipe(postSize)
-        .pipe(gulp.dest(target.images.dir))
-        .pipe(notify({
-            onLast: true,
-            title: 'Img compression',
-            message: sizeChangeMessageCallBack(preSize, postSize)
-        }));
-});
-gulp.task('css', ['clean'], function() {
-    var preSize = size();
-    var postSize = size();
-    var lessStream = gulp.src(sources.less)
-        .pipe(less());
-    var cssStream = gulp.src(sources.css);
-
-    var stream = es.merge(lessStream, cssStream)
-        .pipe(preSize)
-        .pipe(concat(target.css.name));
-    if (environment.production) {
-        stream = stream.pipe(cmq())
-            .pipe(uncss({html: sources.html}))
-            .pipe(minifyCSS());
-    }
-    stream = stream.pipe(postSize)
-        .pipe(gulp.dest(target.css.dir))
-        .pipe(notify({
-            onLast: true,
-            title: 'CSS compression',
-            message: sizeChangeMessageCallBack(preSize, postSize)
-        }));
-    return stream;
-});
-gulp.task('js', ['clean'], function() {
-    var preSize = size();
-    var postSize = size();
-    var jsStream = gulp.src(sources.js.all)
-        .pipe(concat(target.js.name.all));
-    var ieJsStream = gulp.src(sources.js.ie)
-        .pipe(concat(target.js.name.ie));
-    var stream = es.merge(jsStream, ieJsStream)
-        .pipe(preSize);
-    if (environment.production) {
-        stream = stream.pipe(uglify());
-    }
-        stream = stream.pipe(gulp.dest(target.js.dir))
-        .pipe(postSize)
-        .pipe(notify({
-            onLast: true,
-            title: 'JS compression',
-            message: sizeChangeMessageCallBack(preSize, postSize)
-        }));
-    return stream;
+gulp.task('build-components-custom', function() {
+    return lib.sendDest(gulp.src(['src/components/**/*']), 'components');
 });
 
-gulp.task('others', ['clean'], function() {
-    return gulp.src(sources.others)
-        .pipe(data(templateData))
-        .pipe(template())
-        .pipe(gulp.dest(target.others.dir));
+gulp.task('build-components-vendor', function() {
+    return lib.sendDest(gulp.src(['src/vendor_components/**/*', '!src/vendor_components/**/*.md']), 'vendor_components');
 });
 
-gulp.task('commit', ['build'], function() {
-    var stream = gulp.src('dist/**/*');
-    if (environment.development) {
-        gutil.log("Development environment has not a deploy profile");
-        return stream
-            .pipe(gutil.noop());
-    } else if (environment.production) {
-        return stream
-            .pipe(ghPages({branch : "master"}));
-    }
+gulp.task('build-css', function() {
+    var merge = require('gulp-merge');
+    var cssStream = gulp.src('src/css/**/*');
+    var lessStream = gulp.src('src/less/**/*');
+    lessStream = lib.processLess(lessStream);
+    var stream = merge(cssStream, lessStream);
+    stream = lib.processCss(stream);
+    return lib.sendDest(stream, 'css');
 });
 
-gulp.task('build', ['others','html', 'img', 'css', 'js', 'fonts']);
+gulp.task('build-ie-js', function() {
+    var stream = gulp.src('src/js/**/*.ie.*');
+    stream = lib.processJavaScript(stream, 'index.ie.js');
+    return lib.sendDest(stream, 'js');
+});
+
+gulp.task('build-media', function() {
+    var stream = gulp.src('src/media/**/*');
+    stream = lib.processMedia(stream);
+    return lib.sendDest(stream, 'media');
+});
+
+gulp.task('build-misc', function() {
+    var stream = gulp.src(miscFiles);
+    stream = lib.processMedia(stream);
+    return lib.sendDest(stream);
+});
 
 gulp.task('clean', function(cb) {
-    del(['dist/'], cb);
+    var del = require('del'); // rm -rf
+    return del(outputDir + "*", cb);
 });
 
-gulp.task('default', ['build']);
+gulp.task('build', ['build-ie-js', 'build-media', 'build-css', 'build-misc', 'build-components-vendor', 'build-components-custom', 'build-polymer']);
 
-gulp.task('deploy', ['build', 'commit']);
+gulp.task('deploy', function() {
+    return lib.deploy();
+});
+
+gulp.task('watch', function() {
+    gulp.watch('src/css/**/*', ['build-css']);
+    gulp.watch(['src/js/**/*', '!src/js/**/*.ie.*'], ['build-polymer']);
+    gulp.watch('src/media/**/*', ['build-media']);
+    gulp.watch('src/js/**/*.ie.*', ['build-ie-js']);
+    gulp.watch(['src/components/**/*'], ['build-polymer']);
+    gulp.watch(['src/vendor_components/**/*'], ['build-polymer']);
+    gulp.watch(miscFiles, ['build-misc']);
+    gulp.watch(['src/**/*.html', '!src/components/**/*','!src/vendor_components/**/*'], ['build-polymer']);
+});
+
+gulp.task('webserver', function() {
+    var server = require('gulp-server-livereload');
+    return gulp.src(outputDir)
+        .pipe(server({
+            livereload: true,
+            open: true,
+            port: port
+        }));
+});
