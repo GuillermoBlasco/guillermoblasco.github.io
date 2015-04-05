@@ -30,7 +30,8 @@ var miscFiles = [
     'src/humans.txt',
     'src/CNAME',
     'src/robots.txt',
-    'src/404.html'
+    'src/404.html',
+    'src/CNAME'
 ];
 var htmlSources = [
     { dir: '', name:'index.html'},
