@@ -19,6 +19,13 @@ body {
   border-bottom: @borderColor solid 1px;
   box-shadow: 0 10px 50px @shadowColor;
   margin: 0;
+  a {
+    color: @textColor;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 .calligraphic {
   font-family: 'Calligraffitti', cursive;
