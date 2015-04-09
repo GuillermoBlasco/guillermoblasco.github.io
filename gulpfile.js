@@ -122,3 +122,13 @@ gulp.task('webserver', function() {
             port: port
         }));
 });
+
+
+gulp.task('sitemap', function () {
+    var sitemap = require('gulp-sitemap');
+    gulp.src(['dist/**/*.html', '!dist/components/**/*','!dist/vendor_components/**/*'])
+        .pipe(sitemap({
+            siteUrl: 'http://theblackbox.io'
+        }))
+        .pipe(gulp.dest('./dist'));
+});
