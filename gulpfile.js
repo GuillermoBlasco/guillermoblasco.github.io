@@ -31,7 +31,8 @@ var miscFiles = [
     'src/CNAME',
     'src/robots.txt',
     'src/404.html',
-    'src/CNAME'
+    'src/CNAME',
+    'src/googleb654ce1936dd148f.html'
 ];
 var htmlSources = [
     { dir: '', name:'index.html'},
