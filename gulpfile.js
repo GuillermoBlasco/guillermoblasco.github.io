@@ -15,7 +15,7 @@ var taskListing = require('gulp-task-listing');
 var outputDir = 'dist/';
 var basepath = 'src/';
 var isProduction = (argv.p) ? true : false;
-var port = 8001;
+var port = 8000;
 
 /*
  * Require function library
@@ -39,7 +39,8 @@ var htmlSources = [
     { dir: 'about/', name:'index.html'},
     { dir: 'contact/', name:'index.html'},
     { dir: 'blog/', name:'index.html'},
-    { dir: 'blog/unexpected-gaze/', name:'index.html'},
+    { dir: 'blog/complex-algebra/', name:'index.html'},
+    { dir: 'blog/gintonics-I/', name:'index.html'},
     { dir: 'experiments/', name:'index.html'},
     { dir: 'friends/', name:'index.html'}
 ];
