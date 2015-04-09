@@ -38,6 +38,7 @@ var htmlSources = [
     { dir: 'about/', name:'index.html'},
     { dir: 'contact/', name:'index.html'},
     { dir: 'blog/', name:'index.html'},
+    { dir: 'blog/unexpected-gaze/', name:'index.html'},
     { dir: 'experiments/', name:'index.html'},
     { dir: 'friends/', name:'index.html'}
 ];

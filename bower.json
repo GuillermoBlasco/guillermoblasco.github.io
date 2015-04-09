@@ -21,7 +21,10 @@
     "paper-elements": "Polymer/paper-elements#~0.5.5",
     "prismjs": "PrismJS/prism#latest",
     "prism-js": "~0.1.0",
-    "tbb-cardbox" : "theblackboxio/tbb-cardbox",
-    "tbb-landscape" : "theblackboxio/tbb-landscape"
+    "tbb-cardbox": "theblackboxio/tbb-cardbox",
+    "tbb-landscape": "theblackboxio/tbb-landscape"
+  },
+  "devDependencies": {
+    "google-analytics": "~0.0.6"
   }
 }

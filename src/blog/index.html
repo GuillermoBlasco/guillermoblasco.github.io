@@ -5,6 +5,7 @@
         <link href="/css/index.css" rel="stylesheet" type="text/css"/>
         <link rel="import" href="../vendor_components/tbb-landscape/tbb-landscape.html">
         <link rel="import" href="../vendor_components/tbb-cardbox/tbb-cardbox.html">
+        <link rel="import" href="../vendor_components/google-analytics/google-analytics.html">
         <!--[if lt IE 9]>
         <script src="/js/index.ie.js"></script>
         <![endif]-->
@@ -12,27 +13,26 @@
         <title>Shakespeare Code</title>
     </head>
 
-    <h1 id="heading"><span class="calligraphic">Shakespeare</span> <span class="code">Code</span></h1>
+    <h1 id="heading"><a href="/"><span class="calligraphic">Shakespeare</span> <span class="code">Code</span></a></h1>
 
 
-    <tbb-landscape id="landscape" height="500" imageSrc="/media/wineAndFlowers.jpg">
-        <h2>If you are going to try, go all the way</h2>
+    <tbb-landscape id="landscape" height="500" imageSrc="/media/brickWall.jpg">
+        <h2 class="light-content">&nbsp;</h2>
     </tbb-landscape>
 
     <div class="component-center">
-        <a href="" target="_blank">
-            <tbb-cardbox riseonhover>
-                <section class="top">
-                    <img src="/media/github.svg"/>
-                </section>
-                <section class="bottom">
-                    <h1>Github</h1>
-                    <h2>@GuillermoBlasco</h2>
-                </section>
-            </tbb-cardbox>
-        </a>
+        <tbb-cardbox>
+            <section class="top">
+                <img src="/media/calligraffiti_P.svg"/>
+            </section>
+            <section class="bottom">
+                <h1>Unexpected Gaze</h1>
+                <h2>Soon</h2>
+            </section>
+        </tbb-cardbox>
     </div>
 
+    <google-analytics code="UA-61728854-1" domain="shakespearecode.io"></google-analytics>
 
 </html>
 
